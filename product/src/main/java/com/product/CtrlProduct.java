@@ -16,6 +16,7 @@ public class CtrlProduct {
     List<Category> categories = new ArrayList<>();
 
     categories.add(new Category(1, "Lentes", "Lts", 1));
+    categories.add(new Category(2, "Relojes", "Rljs", 1));
     return categories;
   }
 
