@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @Table(name="category")
 public class Category {
   
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("category_id")
   @Column(name = "category_id")
@@ -39,8 +40,8 @@ public class Category {
     this.status = status;
   }
   
-  public void setCategoryId(Integer categoryId) {
-	this.category_id = categoryId;
+  public void setCategoryId(Integer category_id) {
+	this.category_id = category_id;
   }
 	
   public void setCategory(String category){
