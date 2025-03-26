@@ -12,7 +12,9 @@ import com.product.api.dto.in.DtoProductIn;
 import com.product.api.dto.out.DtoProductListOut;
 import com.product.api.dto.out.DtoProductOut;
 import com.product.api.entity.Product;
+import com.product.api.entity.ProductImage;
 import com.product.api.repository.RepoProduct;
+import com.product.api.repository.RepoProductImage;
 import com.product.api.commons.dto.ApiResponse;
 import com.product.api.commons.mapper.MapperProduct;
 import com.product.exception.ApiException;
@@ -23,6 +25,8 @@ public class SvcProductImp implements SvcProduct{
 	
 	@Autowired
 	RepoProduct repo;
+	@Autowired
+	RepoProductImage repoProductImage;
 	
 	@Autowired
 	MapperProduct mapper;
@@ -41,8 +45,11 @@ public class SvcProductImp implements SvcProduct{
 	public ResponseEntity<DtoProductOut> getProduct(Integer id) {
 		try {
 			validateProductId(id);
+			DtoProductOut product = repo.getProduct(id);
+			if(product == null )
+				throw new ApiException(HttpStatus.NOT_FOUND, "El id del producto no existe");
 			
-			return new ResponseEntity<>(null, HttpStatus.OK);
+			return new ResponseEntity<>(product, HttpStatus.OK);
 		}catch (DataAccessException e) {
 			throw new DBAccessException(e);
 		}
@@ -53,6 +60,15 @@ public class SvcProductImp implements SvcProduct{
 		try {
 			Product product = mapper.fromDto(in);
 			repo.save(product);
+			
+			
+			product = repo.save(product);	
+			ProductImage productImage = new ProductImage();
+			productImage.setProductId(product.getProduct_id());
+			productImage.setImage("");
+			productImage.setStatus(1);
+			repoProductImage.save(productImage);
+			
 			return new ResponseEntity<>(new ApiResponse("El producto ha sido registrado"), HttpStatus.CREATED);
 		}catch (DataAccessException e) {
 			if (e.getLocalizedMessage().contains("ux_product_gtin"))
