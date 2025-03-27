@@ -12,4 +12,7 @@ public interface RepoProductImage extends JpaRepository<ProductImage, Integer> {
 	
 	@Query(value="SELECT * FROM product_image WHERE product_id=:product_id", nativeQuery=true)
 	List<ProductImage> findByProductId(Integer product_id);
+	
+    @Query("DELETE FROM product_image WHERE product_id =: product_id")
+    void deleteImageById(Integer product_id);
 }

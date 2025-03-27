@@ -26,4 +26,9 @@ public class CtrlProductImage {
         	throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
         return svc.uploadProductImage(in);
     }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteProductImage(@PathVariable Integer id) {
+        return svc.deleteProductImage(id);
+    }
 }

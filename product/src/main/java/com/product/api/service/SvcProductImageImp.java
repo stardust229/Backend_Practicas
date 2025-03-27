@@ -94,6 +94,35 @@ public class SvcProductImageImp implements SvcProductImage {
 			throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar el archivo");
 		}
 	}
+
+
+	@Override
+	public ResponseEntity<ApiResponse> deleteProductImage(Integer id) {
+		try {
+		    // Buscar la imagen en la base de datos
+		    ProductImage productImage = repo.findById(id)
+		        .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "La imagen no existe"));
+
+		    // Construiye la ruta completa de donde se eliminara la imagen
+
+		    Path filePath = Paths.get(uploadDir, "img", "product", productImage.getImage());
+
+		    // 3. Eliminar el archivo físico
+		    try {
+		        Files.deleteIfExists(filePath);
+		    } catch (IOException e) {
+		        System.err.println("Advertencia: No se pudo eliminar el archivo físico: " + filePath);
+		    }
+
+		    // 4. Eliminar el registro de la base de datos
+		    repo.deleteById(id);
+
+		    return new ResponseEntity<>(new ApiResponse("La imagen ha sido eliminada"), HttpStatus.OK);
+		    
+		} catch (DataAccessException e) {
+		    throw new DBAccessException(e);
+		}
+	}
 	
 	
 
