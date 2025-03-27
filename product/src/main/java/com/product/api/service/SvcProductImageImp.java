@@ -66,7 +66,7 @@ public class SvcProductImageImp implements SvcProductImage {
 				Files.write(imagePath, imageBytes);
 							
 				
-				// Validamos que exista el cliente
+				// Validamos que exista el producto
 				Product product = repoProduct.getProductRaw(in.getProductId());
 				
 				if(product == null)
@@ -77,7 +77,7 @@ public class SvcProductImageImp implements SvcProductImage {
 				ProductImage productImage = new ProductImage();
 				productImage.setProductId(in.getProductId());
 				
-				productImage.setImage("/uploads/img/product/" + fileName);
+				productImage.setImage("/img/product/" + fileName);
 				
 				productImage.setStatus(1); 
 
