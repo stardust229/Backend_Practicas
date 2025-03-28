@@ -156,9 +156,6 @@ public class SvcProductImp implements SvcProduct{
 	private List<String> readProductImageFile(Integer product_id) {
 		try {
 			List<ProductImage> productImages = repoProductImage.findByProductId(product_id);
-			/*if(productImages == null)
-				return "";*/
-			
 			List<String> imageFiles = new ArrayList<>();
 			
 			for(ProductImage img: productImages) {
