@@ -22,8 +22,10 @@ import com.product.api.service.SvcProduct;
 import com.product.api.commons.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Product", description = "Productos")
 @RestController
 @RequestMapping("/product")
 public class CtrlProduct {

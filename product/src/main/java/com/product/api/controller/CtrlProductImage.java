@@ -11,8 +11,10 @@ import com.product.api.dto.in.DtoProductImageIn;
 import com.product.api.service.SvcProductImage;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "ProductImage", description = "Imágenes de productos")
 @RestController
 @RequestMapping("/product-image")
 public class CtrlProductImage {
