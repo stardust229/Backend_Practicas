@@ -13,8 +13,11 @@ import com.product.api.entity.Category;
 import com.product.api.service.SvcCategory;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Category", description = "Categorías")
 @RestController
 @RequestMapping("/category")
 public class CtrlCategory {
@@ -28,6 +31,7 @@ public class CtrlCategory {
     return svc.getCategories();
   }
   
+  @Operation(summary = "Consultar categorías", description = "Retorna todas las categorías activas registradas en el sistema")
   @GetMapping("/active")
   public ResponseEntity<List<Category>> getActiveCategories(){
   	return svc.getActiveCategories();
