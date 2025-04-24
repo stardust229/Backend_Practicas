@@ -1,15 +1,32 @@
 package com.product.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="category")
 public class Category {
-
+  
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonProperty("category_id")
+  @Column(name = "category_id")
   private Integer category_id;
+
+
+  @JsonProperty("category")
+  @Column(name = "category")
   private String category;
+
+
+  @JsonProperty("tag")
+  @Column(name = "tag")
   private String tag;
+
+
+  @JsonProperty("status")
+  @Column(name = "status")
   private Integer status;
   
   public Category() {
@@ -23,8 +40,8 @@ public class Category {
     this.status = status;
   }
   
-  public void setCategoryId(Integer categoryId) {
-	this.category_id = categoryId;
+  public void setCategoryId(Integer category_id) {
+	this.category_id = category_id;
   }
 	
   public void setCategory(String category){
